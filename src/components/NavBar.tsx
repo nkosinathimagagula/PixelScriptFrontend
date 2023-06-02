@@ -10,7 +10,9 @@ export const NavBar = () => {
     return (
         <nav className="bg-[#00ffef] w-full sm:h-20 h-16 fixed sm:px-16 sm:py-2 py-1 px-5">
             <div className="w-full flex justify-between">
-                <img src={logo} alt="logo" className="sm:w-32 sm:h-14 w-24 h-14" />
+                <a href="/">
+                    <img src={logo} alt="logo" className="sm:w-32 sm:h-14 w-24 h-14" />
+                </a>
                     
                 <ul className="sm:flex hidden gap-10 py-4">
                     {navBarTabs.map((tab) => (
