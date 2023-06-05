@@ -1,8 +1,8 @@
 export const LandingSection = () => {
     return (
         <section className="bg-[#374151] w-full min-h-screen sm:pt-20 pt-16">
-            <div className="w-full h-full sm:flex items-center sm:px-24 sm:py-16 px-2 py-10">
-                <div className="bg-[#293241] sm:w-[900px] w-full min-h-[450px] rounded-3xl sm:p-10 p-5">
+            <div className="w-full h-full sm:flex items-center sm:px-24 py-10 px-2">
+                <div className="bg-[#293241] sm:w-[60vw] w-full min-h-[450px] rounded-3xl sm:p-10 p-5">
                     <span className="text-[60px] text-[#e0fbfc]">Introducing PixelScript.</span>
                     <br />
                     <br />
@@ -14,8 +14,8 @@ export const LandingSection = () => {
                     hidden potential of images.
 
                     PixelScript leverages optical character recognition (OCR) algorithms to swiftly and accurately 
-                    recognize text within images, allowing you to easily convert them into editable and more readable 
-                    formats. Whether it's scanned documents, images, or screenshots, PixelScript efficiently 
+                    recognize text within images, allowing you to easily convert them into editable and fast readable 
+                    formats (<b className="font-semibold">Bionic Reading Method</b>). Whether it's scanned documents, images, or screenshots, PixelScript efficiently 
                     extracts the text and puts it at your fingertips.
 
                     <br />
@@ -25,13 +25,26 @@ export const LandingSection = () => {
                     </p>
                 </div>
 
-                <div className="flex flex-row justify-center gap-5 sm:pl-40 py-10">
-                    <button className="bg-[#00ffef] text-[#374151] rounded-lg w-20 h-10 hover:bg-[#77fff7] button-hover">
-                        Sign In
-                    </button>
-                    <button className="bg-[#00ffef] text-[#374151] rounded-lg w-20 h-10 hover:bg-[#77fff7] button-hover">
-                        Sign Up
-                    </button>
+                <div className="flex flex-col sm:w-[35vw] w-full justify-center gap-5 sm:pl-40 py-10">
+                    <div className="w-full flex flex-col justify-center px-5">
+                        <h2 className="text-[30px] text-[#e0fbfc]">What is Bionic reading?</h2>
+                        <p
+                            className="text-white font-light text-[16px] tracking-widest leading-[30px] pt-5"
+                        >
+                            Bionic reading helps readers by guiding the eyes through text with artificial fixation points.
+                            This makes the reader to only focus on bolded initial letters and let the brain center complete 
+                            the word. This results in faster reading, in-depth reading and more understanding of the content 
+                            being read.
+                        </p>
+                    </div>
+                    <div className="w-full flex flex-row justify-center gap-5 pt-5">
+                        <button className="bg-[#00ffef] text-[#374151] rounded-lg w-20 h-10 hover:bg-[#77fff7] button-hover">
+                            Sign In
+                        </button>
+                        <button className="bg-[#00ffef] text-[#374151] rounded-lg w-20 h-10 hover:bg-[#77fff7] button-hover">
+                            Sign Up
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
