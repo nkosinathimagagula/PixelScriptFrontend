@@ -1,4 +1,9 @@
+import { Link } from "react-router-dom"
+
 export const LandingSection = () => {
+    const access_token = localStorage.getItem("access_token");
+    const loggedIn: string = access_token ? access_token : 'undefined';
+
     return (
         <section className="bg-[#374151] w-full min-h-screen sm:pt-20 pt-16">
             <div className="w-full h-full sm:flex items-center sm:px-24 py-10 px-2">
@@ -37,13 +42,22 @@ export const LandingSection = () => {
                             being read.
                         </p>
                     </div>
-                    <div className="w-full flex flex-row justify-center gap-5 pt-5">
-                        <button className="bg-[#00ffef] text-[#374151] rounded-lg w-20 h-10 hover:bg-[#77fff7] button-hover">
-                            Sign In
-                        </button>
-                        <button className="bg-[#00ffef] text-[#374151] rounded-lg w-20 h-10 hover:bg-[#77fff7] button-hover">
-                            Sign Up
-                        </button>
+                    <div className={loggedIn !== 'undefined' ? 'hidden' : 'w-full flex flex-row justify-center gap-5 pt-5'}>
+                        <Link
+                            to={"/signin"}
+                        >
+                            <button className="bg-[#00ffef] text-[#374151] rounded-lg w-24 h-10 hover:bg-[#77fff7] button-hover">
+                                Sign In
+                            </button>
+                        </Link>
+
+                        <Link
+                            to={"/signup"}
+                        >
+                            <button className="bg-[#00ffef] text-[#374151] rounded-lg w-24 h-10 hover:bg-[#77fff7] button-hover">
+                                Sign Up
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
