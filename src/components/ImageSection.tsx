@@ -137,7 +137,7 @@ export const ImageSection = () => {
                 </div>
 
                 <div className={response ? 'bg-[#293241] flex flex-col w-full overflow-auto h-full rounded-2xl p-5 gap-3 scrolling' : 'hidden'}>
-                    <h2 className="text-[30px] text-[#e0fbfc]">Extracted Text [Bionic Reading Method]</h2>
+                    <h2 className="text-[30px] text-[#e0fbfc]">Extracted Text [Bionic Reading]</h2>
                     <div className="flex sm:flex-row flex-col w-full sm:gap-20 gap-10">
                         <DocumentViewer response={response} />
                         <div className="sm:w-[30vw] w-full justify-center">

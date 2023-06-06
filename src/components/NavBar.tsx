@@ -22,7 +22,7 @@ export const NavBar = () => {
                 <ul className="sm:flex hidden gap-10 py-4">
                     {navBarTabs.map((tab) => (
                         <NavLink
-                            to={`/${tab.id}`}
+                            to={`/${tab.id}/`}
                             key={tab.title}
                             style={({ isActive }) => {
                                 return isActive ? { textDecoration: "underline"} : {}

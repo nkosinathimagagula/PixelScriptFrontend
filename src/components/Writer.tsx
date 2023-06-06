@@ -60,7 +60,7 @@ export const Writer = (props: {text: string | undefined, headings: string[] | un
                                         // map each section to return word with bionic method applied
                                         fHalfSection.map((word, index_n) => (
                                             <span key={`s${index_n}`}>
-                                                <span className="text-[20px] font-light leading-[30px]">
+                                                <span className="text-[20px] font-normal leading-[30px]">
                                                     <b className="font-semibold">{word}</b>{lHalfSection[index_n]}
                                                 </span>
                                                 &nbsp;
@@ -81,7 +81,7 @@ export const Writer = (props: {text: string | undefined, headings: string[] | un
                                     // map each section to return word with bionic method applied
                                     fHalfSection.map((word, index_n) => (
                                         <span key={`s${index_n}`}>
-                                            <span className="text-[16px] font-light leading-[30px]">
+                                            <span className="text-[16px] font-normal leading-[30px]">
                                                 <b className="font-semibold">{word}</b>{lHalfSection[index_n]}
                                             </span>
                                             &nbsp;
