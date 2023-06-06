@@ -1,32 +1,38 @@
 import { useState } from "react";
+import { Link, NavLink} from "react-router-dom";
 
 import { logo, menu, close } from "../assets";
 import { navBarTabs } from "../constants/navbar";
 
 export const NavBar = () => {
-    const [active, setActive] = useState<string>("");
     const [toggle, setToggle] = useState<boolean>(false);
+
+    const access_token = localStorage.getItem("access_token");
+    const loggedIn: string = access_token ? access_token : 'undefined';
 
     return (
         <nav className="bg-[#00ffef] w-full sm:h-20 h-16 fixed sm:px-16 sm:py-2 py-1 px-5">
             <div className="w-full flex justify-between">
-                <a href="/">
+                <Link
+                    to={loggedIn !== 'undefined' ? '/home' : '/'}
+                >
                     <img src={logo} alt="logo" className="sm:w-32 sm:h-14 w-24 h-14" />
-                </a>
+                </Link>
                     
                 <ul className="sm:flex hidden gap-10 py-4">
                     {navBarTabs.map((tab) => (
-                        <li
+                        <NavLink
+                            to={`/${tab.id}`}
                             key={tab.title}
-                            onClick={() => {
-                                setActive(tab.title);
+                            style={({ isActive }) => {
+                                return isActive ? { textDecoration: "underline"} : {}
                             }}
-                            className={active === tab.title ? `underline` : `text-[#374151]`}
+                            className={loggedIn !== 'undefined' ? 'text-[#374151]' : 'pointer-events-none text-[#37415155]'}
                         >
-                            <a href="#">
+                            <li>
                                 {tab.title}
-                            </a>
-                        </li>
+                            </li>
+                        </NavLink>
                     ))}
                 </ul>
 
@@ -43,18 +49,21 @@ export const NavBar = () => {
                     <div className={`${toggle ? `flex` : `hidden`} absolute bg-[#00ffef] p-5 top-16 right-0`}>
                         <ul className="flex flex-col justify-end items-start gap-2">
                             {navBarTabs.map((tab) => (
-                                <li
+                                <NavLink
+                                    to={`${tab.id}`}
                                     key={tab.title}
-                                    onClick={() => {
-                                        setActive(tab.title);
-                                        setToggle(false);
-                                    }}
-                                    className="text-[#374151]"
+                                    className={loggedIn !== 'undefined' ? 'text-[#374151]' : 'pointer-events-none text-[#37415155]'}
                                 >
-                                    <a href="#">
+                                    <li
+                                        key={tab.title}
+                                        onClick={() => {
+                                            setToggle(false);
+                                        }}
+                                        className="text-[#374151]"
+                                    >
                                         {tab.title}
-                                    </a>
-                                </li>
+                                    </li>
+                                </NavLink>
                             ))}
                         </ul>
                     </div>
