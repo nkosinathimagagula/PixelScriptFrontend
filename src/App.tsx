@@ -5,6 +5,9 @@ import { SignupPage } from "./pages/SignupPage";
 import { SigninPage } from "./pages/SigninPage";
 import { ImagePage } from "./pages/ImagePage";
 
+import { TemporaryPage } from "./pages/TemporaryPage";
+import { ProfilePage } from "./pages/ProfilePage";
+
 const App = () => {
   
   return (
@@ -15,8 +18,11 @@ const App = () => {
         <Route path="/signup" element={<SignupPage />}/>
         <Route path="/signin" element={<SigninPage />}/>
 
-        <Route path="/home" element={<LandingPage />}/>
-        <Route path="/images" element={<ImagePage/>}/>
+        <Route path="/home/" element={<LandingPage />}/>
+        <Route path="/images/" element={<ImagePage/>}/>
+        <Route path="/pdfs/" element={<TemporaryPage />}/>
+        <Route path="/word-docs/" element={<TemporaryPage />}/>
+        <Route path="/profile/" element={<ProfilePage />}/>
       </Routes>
     </>
       
