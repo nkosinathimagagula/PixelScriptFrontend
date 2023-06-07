@@ -12,7 +12,7 @@ export const navBarTabs = [
         title: "PDFs"
     },
     {
-        id: "word_docs",
+        id: "word-docs",
         title: "Word Docs"
     },
     {

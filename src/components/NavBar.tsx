@@ -14,7 +14,7 @@ export const NavBar = () => {
         <nav className="bg-[#00ffef] w-full sm:h-20 h-16 fixed sm:px-16 sm:py-2 py-1 px-5">
             <div className="w-full flex justify-between">
                 <Link
-                    to={loggedIn !== 'undefined' ? '/home' : '/'}
+                    to={loggedIn !== 'undefined' ? '/home/' : '/'}
                 >
                     <img src={logo} alt="logo" className="sm:w-32 sm:h-14 w-24 h-14" />
                 </Link>
