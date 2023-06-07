@@ -25,7 +25,7 @@ export const ImageSection = () => {
         setLoading(true);
 
         const imageFile: File | null = uploadedImage;
-        extractText({imageFile, setResponse});
+        extractText(imageFile, setResponse);
     }
 
     const handleDownloadOnClick = () => {

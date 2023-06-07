@@ -30,7 +30,7 @@ export const Signin = () => {
 
         const { email, password } = form;
 
-        signin({email, password, setToken});        
+        signin(email, password, setToken);        
     }
 
     useEffect(() => {
