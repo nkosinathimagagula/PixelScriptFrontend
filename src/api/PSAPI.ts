@@ -2,12 +2,12 @@ import { Dispatch, SetStateAction } from "react";
 import { ExtractResponse } from "../types/text";
 import { Token } from "../types/token";
 
-export const extractText = (props: {imageFile: File | null, setResponse: Dispatch<SetStateAction<ExtractResponse | null>>}) => {
+export const extractText = (imageFile: File | null, setResponse: Dispatch<SetStateAction<ExtractResponse | null>>) => {
     const access_token = localStorage.getItem("access_token");
 
     const formData = new FormData();
 
-    const { imageFile, setResponse } = props;
+    // const { imageFile, setResponse } = props;
 
     if (imageFile !== null) {
         formData.append("image", imageFile, imageFile.name)
@@ -27,8 +27,8 @@ export const extractText = (props: {imageFile: File | null, setResponse: Dispatc
     .catch(error => console.log(error))
 }
 
-export const signup = (props: {name: string, email: string, password: string, setLoading: Dispatch<SetStateAction<boolean>>}) => {
-    const { name, email, password, setLoading } = props;
+export const signup = (name: string, email: string, password: string, setLoading: Dispatch<SetStateAction<boolean>>) => {
+    // const { name, email, password, setLoading } = props;
     
     fetch("http://127.0.0.1:8000/api/PST/users/", {
         method: "POST",
@@ -52,10 +52,10 @@ export const signup = (props: {name: string, email: string, password: string, se
 }
 
 
-export const signin = (props: {email: string, password: string, setToken: Dispatch<SetStateAction<Token>>}) => {
+export const signin = (email: string, password: string, setToken: Dispatch<SetStateAction<Token>>) => {
     const formData = new FormData();
 
-    const { email, password, setToken } = props;
+    // const { email, password, setToken } = props;
 
     formData.append("username", email)
     formData.append("password", password)
@@ -77,4 +77,91 @@ export const signin = (props: {email: string, password: string, setToken: Dispat
         localStorage.setItem("access_token", data.access_token);
     })
     .catch(error => console.log(error))
+}
+
+
+export const readData = (file_type: string, from_date: string, to_date: string) => {
+    const access_token = localStorage.getItem("access_token");
+    
+    if (!file_type && !from_date && !to_date) {
+        fetch(`http://127.0.0.1:8000/api/PST/extract/data/`, {
+            headers: {
+                "accept": "application/json",
+                "Authorization": "Bearer " + access_token
+            }
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+    } else if (file_type && !from_date && !to_date) {
+        fetch(`http://127.0.0.1:8000/api/PST/extract/data/?filetype=${file_type}`, {
+            headers: {
+                "accept": "application/json",
+                "Authorization": "Bearer " + access_token
+            }
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+    } else if (file_type && from_date && !to_date) {
+        fetch(`http://127.0.0.1:8000/api/PST/extract/data/?filetype=${file_type}&fromdate=${from_date}`, {
+            headers: {
+                "accept": "application/json",
+                "Authorization": "Bearer " + access_token
+            }
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+    } else if (file_type && !from_date && to_date) {
+        fetch(`http://127.0.0.1:8000/api/PST/extract/data/?filetype=${file_type}&todate=${to_date}`, {
+            headers: {
+                "accept": "application/json",
+                "Authorization": "Bearer " + access_token
+            }
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+    } else if (file_type && from_date && to_date) {
+        fetch(`http://127.0.0.1:8000/api/PST/extract/data/?filetype=${file_type}&fromdate=${from_date}&todate=${to_date}`, {
+            headers: {
+                "accept": "application/json",
+                "Authorization": "Bearer " + access_token
+            }
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+    } else if (!file_type && from_date && to_date) {
+        fetch(`http://127.0.0.1:8000/api/PST/extract/data/?fromdate=${from_date}&todate=${to_date}`, {
+            headers: {
+                "accept": "application/json",
+                "Authorization": "Bearer " + access_token
+            }
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+    } else if (!file_type && !from_date && to_date) {
+        fetch(`http://127.0.0.1:8000/api/PST/extract/data/todate=${to_date}`, {
+            headers: {
+                "accept": "application/json",
+                "Authorization": "Bearer " + access_token
+            }
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+    } else if (!file_type && from_date && !to_date) {
+        fetch(`http://127.0.0.1:8000/api/PST/extract/data/?fromdate=${from_date}`, {
+            headers: {
+                "accept": "application/json",
+                "Authorization": "Bearer " + access_token
+            }
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+    }
 }
