@@ -3,7 +3,7 @@ import { ExtractResponse } from "../types/text";
 import { Token } from "../types/token";
 
 export const extractText = (imageFile: File | null, setResponse: Dispatch<SetStateAction<ExtractResponse | null>>) => {
-    const access_token = localStorage.getItem("access_token");
+    const access_token = sessionStorage.getItem("access_token");
 
     const formData = new FormData();
 
@@ -74,14 +74,14 @@ export const signin = (email: string, password: string, setToken: Dispatch<SetSt
     .then(res => res.json())
     .then(data => {
         setToken(data);
-        localStorage.setItem("access_token", data.access_token);
+        sessionStorage.setItem("access_token", data.access_token);
     })
     .catch(error => console.log(error))
 }
 
 
-export const readData = (file_type: string, from_date: string, to_date: string) => {
-    const access_token = localStorage.getItem("access_token");
+export const readData = (file_type: string, from_date: string, to_date: string, setResponse: Dispatch<SetStateAction<ExtractResponse[] | null>>) => {
+    const access_token = sessionStorage.getItem("access_token");
     
     if (!file_type && !from_date && !to_date) {
         fetch(`http://127.0.0.1:8000/api/PST/extract/data/`, {
@@ -91,7 +91,13 @@ export const readData = (file_type: string, from_date: string, to_date: string) 
             }
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if (data.constructor === Array && data.length !== 0) {
+                setResponse(data);
+            } else {
+                setResponse(null);
+            }
+        })
         .catch(error => console.log(error))
     } else if (file_type && !from_date && !to_date) {
         fetch(`http://127.0.0.1:8000/api/PST/extract/data/?filetype=${file_type}`, {
@@ -101,7 +107,13 @@ export const readData = (file_type: string, from_date: string, to_date: string) 
             }
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if (data.constructor === Array && data.length !== 0) {
+                setResponse(data);
+            } else {
+                setResponse(null);
+            }
+        })
         .catch(error => console.log(error))
     } else if (file_type && from_date && !to_date) {
         fetch(`http://127.0.0.1:8000/api/PST/extract/data/?filetype=${file_type}&fromdate=${from_date}`, {
@@ -111,7 +123,13 @@ export const readData = (file_type: string, from_date: string, to_date: string) 
             }
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if (data.constructor === Array && data.length !== 0) {
+                setResponse(data);
+            } else {
+                setResponse(null);
+            }
+        })
         .catch(error => console.log(error))
     } else if (file_type && !from_date && to_date) {
         fetch(`http://127.0.0.1:8000/api/PST/extract/data/?filetype=${file_type}&todate=${to_date}`, {
@@ -121,7 +139,13 @@ export const readData = (file_type: string, from_date: string, to_date: string) 
             }
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if (data.constructor === Array && data.length !== 0) {
+                setResponse(data);
+            } else {
+                setResponse(null);
+            }
+        })
         .catch(error => console.log(error))
     } else if (file_type && from_date && to_date) {
         fetch(`http://127.0.0.1:8000/api/PST/extract/data/?filetype=${file_type}&fromdate=${from_date}&todate=${to_date}`, {
@@ -131,7 +155,13 @@ export const readData = (file_type: string, from_date: string, to_date: string) 
             }
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if (data.constructor === Array && data.length !== 0) {
+                setResponse(data);
+            } else {
+                setResponse(null);
+            }
+        })
         .catch(error => console.log(error))
     } else if (!file_type && from_date && to_date) {
         fetch(`http://127.0.0.1:8000/api/PST/extract/data/?fromdate=${from_date}&todate=${to_date}`, {
@@ -141,17 +171,29 @@ export const readData = (file_type: string, from_date: string, to_date: string) 
             }
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if (data.constructor === Array && data.length !== 0) {
+                setResponse(data);
+            } else {
+                setResponse(null);
+            }
+        })
         .catch(error => console.log(error))
     } else if (!file_type && !from_date && to_date) {
-        fetch(`http://127.0.0.1:8000/api/PST/extract/data/todate=${to_date}`, {
+        fetch(`http://127.0.0.1:8000/api/PST/extract/data/?todate=${to_date}`, {
             headers: {
                 "accept": "application/json",
                 "Authorization": "Bearer " + access_token
             }
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if (data.constructor === Array && data.length !== 0) {
+                setResponse(data);
+            } else {
+                setResponse(null);
+            }
+        })
         .catch(error => console.log(error))
     } else if (!file_type && from_date && !to_date) {
         fetch(`http://127.0.0.1:8000/api/PST/extract/data/?fromdate=${from_date}`, {
@@ -161,7 +203,13 @@ export const readData = (file_type: string, from_date: string, to_date: string) 
             }
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if (data.constructor === Array && data.length !== 0) {
+                setResponse(data);
+            } else {
+                setResponse(null);
+            }
+        })
         .catch(error => console.log(error))
     }
 }
