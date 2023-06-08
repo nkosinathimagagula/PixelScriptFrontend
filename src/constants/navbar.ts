@@ -16,7 +16,7 @@ export const navBarTabs = [
         title: "Word Docs"
     },
     {
-        id: "profile",
-        title: "Profile"
+        id: "history",
+        title: "History"
     }
 ]
