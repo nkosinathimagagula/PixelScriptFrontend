@@ -14,7 +14,7 @@ export const Signin = () => {
 
     const formRef = useRef() as MutableRefObject<HTMLFormElement>;
 
-    const access_token = localStorage.getItem("access_token");
+    const access_token = sessionStorage.getItem("access_token");
     const loggedIn: string = access_token ? access_token : 'undefined';
 
     const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
@@ -37,7 +37,7 @@ export const Signin = () => {
         setLoading(false);
         
         if ( loggedIn !== 'undefined' && token.token_type === 'bearer' ) {
-            navigate("/home");
+            navigate("/home/");
         }
     }, [token])
 

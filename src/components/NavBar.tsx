@@ -7,7 +7,7 @@ import { navBarTabs } from "../constants/navbar";
 export const NavBar = () => {
     const [toggle, setToggle] = useState<boolean>(false);
 
-    const access_token = localStorage.getItem("access_token");
+    const access_token = sessionStorage.getItem("access_token");
     const loggedIn: string = access_token ? access_token : 'undefined';
 
     return (
@@ -50,7 +50,7 @@ export const NavBar = () => {
                         <ul className="flex flex-col justify-end items-start gap-2">
                             {navBarTabs.map((tab) => (
                                 <NavLink
-                                    to={`${tab.id}`}
+                                    to={`/${tab.id}/`}
                                     key={tab.title}
                                     className={loggedIn !== 'undefined' ? 'text-[#374151]' : 'pointer-events-none text-[#37415155]'}
                                 >
