@@ -29,7 +29,7 @@ export const ProfileSection = () => {
     
 
     return (
-        <section className="bg-[#374151] w-full h-full sm:pt-20 pt-16">
+        <section className="bg-[#374151] w-full min-h-screen sm:pt-20 pt-16">
             <div className="flex flex-col w-full h-full">
                 <div className={onView ? 'hidden' : 'flex flex-row w-full sm:p-10 p-5 items-center justify-evenly'}>
                     <h3 className="text-[25px] text-[#e0fbfc]">Filter</h3>
@@ -138,7 +138,7 @@ export const ProfileSection = () => {
                     </div>
                 </div>
 
-                <div className={record ? 'flex p-10' : 'hidden'}>
+                <div className={record ? 'flex sm:p-10 p-5' : 'hidden'}>
                     <DocumentContainer response={record} setOnView={setOnView} setRecord={setRecord}/>
                 </div>
             </div>
