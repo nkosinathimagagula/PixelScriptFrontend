@@ -9,7 +9,10 @@ export const Signup = () => {
     const [form, setForm] = useState<signupUserBase>({name: "", email: "", password: "", confirmPassword: ""});
     const [loading, setLoading] = useState<boolean>(false);
 
+    const [error, setError] = useState<String | null>(null);
+
     const formRef = useRef() as MutableRefObject<HTMLFormElement>;
+
 
     const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
         const { name, value } = e.currentTarget;
@@ -23,12 +26,18 @@ export const Signup = () => {
 
         const { name, email, password, confirmPassword } = form;
 
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!")
+        if (!name || !email || !password || !confirmPassword) {
+            setError("All fields must me filled.");
+            setLoading(false);
         } else {
-            signup({name, email, password, setLoading});
-
-            return redirect("/po")
+            if (password !== confirmPassword) {
+                setError("Passwords do not match.");
+                setLoading(false);
+            } else {
+                signup(name, email, password, setLoading);
+    
+                return redirect("/po")
+            }
         }
     }
 
@@ -39,10 +48,19 @@ export const Signup = () => {
                     <div className="w-full flex justify-center">
                         <h2 className="text-[40px] text-[#e0fbfc]">Signup</h2>
                     </div>
+
+                    {
+                        error &&
+                        <div className="w-full flex justify-center text-red-700 text-[14px]">
+                            {error}
+                            Try again!
+                        </div>
+                    }
+
                     <form
                         ref={formRef}
                         onSubmit={handleSubmit}
-                        className="flex flex-col mt-10 gap-5"
+                        className="flex flex-col mt-5 gap-5"
                     >
                         <label className="flex flex-col gap-2">
                             <span className="text-white">Name</span>
