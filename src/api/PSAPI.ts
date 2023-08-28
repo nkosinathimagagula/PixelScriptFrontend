@@ -38,7 +38,7 @@ export const signup = (name: string, email: string, password: string, setLoading
             password: password
         }),
         headers: {
-            "Content-Type": "form/x-www-form-urlencoded",
+            "Content-Type": "application/json",
             "accept": "application/json"
         }
     })

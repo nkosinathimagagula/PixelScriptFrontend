@@ -9,7 +9,7 @@ export const Signup = () => {
     const [form, setForm] = useState<signupUserBase>({name: "", email: "", password: "", confirmPassword: ""});
     const [loading, setLoading] = useState<boolean>(false);
 
-    const [error, setError] = useState<String | null>(null);
+    const [response, setResponse] = useState<string | null>(null);
 
     const formRef = useRef() as MutableRefObject<HTMLFormElement>;
 
@@ -19,6 +19,7 @@ export const Signup = () => {
 
         setForm({...form, [name]: value});
     }
+
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault()
 
@@ -27,16 +28,16 @@ export const Signup = () => {
         const { name, email, password, confirmPassword } = form;
 
         if (!name || !email || !password || !confirmPassword) {
-            setError("All fields must me filled.");
+            setResponse("All fields must me filled. Try again!");
             setLoading(false);
         } else {
             if (password !== confirmPassword) {
-                setError("Passwords do not match.");
+                setResponse("Passwords do not match. Try again!");
                 setLoading(false);
             } else {
                 signup(name, email, password, setLoading);
     
-                return redirect("/po")
+                redirect("/signin");
             }
         }
     }
@@ -50,10 +51,9 @@ export const Signup = () => {
                     </div>
 
                     {
-                        error &&
+                        response &&
                         <div className="w-full flex justify-center text-red-700 text-[14px]">
-                            {error}
-                            Try again!
+                            {response}
                         </div>
                     }
 
