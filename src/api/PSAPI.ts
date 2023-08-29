@@ -27,7 +27,7 @@ export const extractText = (imageFile: File | null, setResponse: Dispatch<SetSta
     .catch(error => console.log(error))
 }
 
-export const signup = (name: string, email: string, password: string, setLoading: Dispatch<SetStateAction<boolean>>) => {
+export const signup = (name: string, email: string, password: string, setLoading: Dispatch<SetStateAction<boolean>>, setResponse: Dispatch<SetStateAction<string | null>>, setError: Dispatch<SetStateAction<string | null>>) => {
     // const { name, email, password, setLoading } = props;
     
     fetch("http://127.0.0.1:8000/api/PST/users/", {
@@ -45,10 +45,20 @@ export const signup = (name: string, email: string, password: string, setLoading
     .then(res => res.json())
     .then(data => {
         setLoading(false);
+
+        if (data.detail !== "user created") {
+            setError(data.detail + ". Try again!");
+        } else {
+            setResponse(data.detail + ". You will now be redirected to the login page...");
+        }
+
         console.log(data);
-        
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+        setLoading(false);
+        setError("Could not connect. Check your network and try again.")
+        console.log(error);
+    })
 }
 
 

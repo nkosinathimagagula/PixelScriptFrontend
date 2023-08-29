@@ -10,6 +10,7 @@ export const Signup = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const [response, setResponse] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     const formRef = useRef() as MutableRefObject<HTMLFormElement>;
 
@@ -21,21 +22,23 @@ export const Signup = () => {
     }
 
     const handleSubmit = (e: SyntheticEvent) => {
-        e.preventDefault()
+        e.preventDefault();
+        setResponse(null);
+        setError(null);
 
         setLoading(true);
 
         const { name, email, password, confirmPassword } = form;
 
         if (!name || !email || !password || !confirmPassword) {
-            setResponse("All fields must me filled. Try again!");
+            setError("All fields must me filled. Try again!");
             setLoading(false);
         } else {
             if (password !== confirmPassword) {
-                setResponse("Passwords do not match. Try again!");
+                setError("Passwords do not match. Try again!");
                 setLoading(false);
             } else {
-                signup(name, email, password, setLoading);
+                signup(name, email, password, setLoading, setResponse, setError);
     
                 redirect("/signin");
             }
@@ -52,8 +55,14 @@ export const Signup = () => {
 
                     {
                         response &&
-                        <div className="w-full flex justify-center text-red-700 text-[14px]">
+                        <div className="w-full flex justify-center text-green-700 text-[14px]">
                             {response}
+                        </div>
+                    }
+                    {
+                        error &&
+                        <div className="w-full flex justify-center text-red-700 text-[14px]">
+                            {error}
                         </div>
                     }
 
