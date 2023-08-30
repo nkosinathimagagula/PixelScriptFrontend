@@ -54,7 +54,7 @@ export const signup = (name: string, email: string, password: string, setLoading
 
         console.log(data);
     })
-    .catch(error => {
+    .catch((error) => {
         setLoading(false);
         setError("Could not connect. Check your network and try again.")
         console.log(error);
@@ -62,7 +62,7 @@ export const signup = (name: string, email: string, password: string, setLoading
 }
 
 
-export const signin = (email: string, password: string, setToken: Dispatch<SetStateAction<Token>>) => {
+export const signin = (email: string, password: string, setToken: Dispatch<SetStateAction<Token>>, setLoading: Dispatch<SetStateAction<boolean>>, setError: Dispatch<SetStateAction<string | null>>) => {
     const formData = new FormData();
 
     // const { email, password, setToken } = props;
@@ -83,10 +83,20 @@ export const signin = (email: string, password: string, setToken: Dispatch<SetSt
     })
     .then(res => res.json())
     .then(data => {
-        setToken(data);
-        sessionStorage.setItem("access_token", data.access_token);
+        if (Object.keys(data)[0] === "access_token" && Object.keys(data)[1] === "token_type") {
+            setToken(data);
+            sessionStorage.setItem("access_token", data.access_token);
+            setLoading(false);
+        } else {
+            setError(data.detail + ". Try again!")
+            setLoading(false);
+        }
     })
-    .catch(error => console.log(error))
+    .catch((error) => {
+        setError("Could not connect. Check your network and try again.");
+        setLoading(false);
+        console.log(error);
+    })
 }
 
 
