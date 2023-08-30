@@ -1,18 +1,21 @@
-import { FormEvent, MutableRefObject, SyntheticEvent, useRef, useState } from "react";
-import { redirect } from "react-router-dom";
+import { FormEvent, MutableRefObject, SyntheticEvent, useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 
 import { signup } from "../api/PSAPI";
 import { signupUserBase } from "../types/user";
 
+
 export const Signup = () => {
     const [form, setForm] = useState<signupUserBase>({name: "", email: "", password: "", confirmPassword: ""});
-    const [loading, setLoading] = useState<boolean>(false);
+    const formRef = useRef() as MutableRefObject<HTMLFormElement>;
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [response, setResponse] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [counter, setCounter] = useState<number>(5);
 
-    const formRef = useRef() as MutableRefObject<HTMLFormElement>;
+    const navigate = useNavigate();
 
 
     const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
@@ -39,12 +42,32 @@ export const Signup = () => {
                 setLoading(false);
             } else {
                 signup(name, email, password, setLoading, setResponse, setError);
-    
-                redirect("/signin");
             }
         }
     }
 
+
+    useEffect(() => {
+        if (response !== null) {
+            setTimeout(() => {
+                navigate("/signin");
+            }, 5000);
+        }
+    }, [response]);
+
+    useEffect(() => {
+        if (!counter) {
+            return;
+        }
+
+        if (response !== null) {
+            setTimeout(() => {
+                setCounter(counter - 1);
+            }, 1000);
+        }
+    }, [counter, response]);
+
+    
     return (
         <section className="bg-[#374151] w-full h-screen sm:pt-20 pt-16">
             <div className="w-full h-full sm:flex items-center justify-center sm:px-24 py-10 px-2">
@@ -57,6 +80,12 @@ export const Signup = () => {
                         response &&
                         <div className="w-full flex justify-center text-green-700 text-[14px]">
                             {response}
+                        </div>
+                    }
+                    {
+                        response &&
+                        <div className="w-full flex justify-center text-[#e0fbfc] text-[20px]">
+                            {counter}
                         </div>
                     }
                     {
